@@ -5,8 +5,8 @@ import {FiGlobe} from 'react-icons/fi';
 import {BsList} from 'react-icons/bs';
 import {FaUserCircle} from 'react-icons/fa';
 import React, { useState } from 'react';
-import {BsFillArrowLeftCircleFill} from 'react-icons/bs'
-import {BsFillArrowRightCircleFill} from 'react-icons/bs'
+import {BsFillArrowLeftCircleFill} from 'react-icons/bs';
+import {BsFillArrowRightCircleFill} from 'react-icons/bs';
 
 const inter = Inter({ subsets: ['latin'] })
 
