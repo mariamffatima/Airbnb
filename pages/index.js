@@ -7,10 +7,6 @@ import {FaUserCircle} from 'react-icons/fa';
 import React, { useState } from 'react';
 import {BsFillArrowLeftCircleFill} from 'react-icons/bs';
 import {BsFillArrowRightCircleFill} from 'react-icons/bs';
-import 'react-date-range/dist/styles.css'; // main css file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import { DateRange } from 'react-date-range';
-import { DefinedRange } from 'react-date-range';
 const inter = Inter({ subsets: ['latin'] })
 
 function MyInput() {
