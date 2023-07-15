@@ -61,9 +61,6 @@ export default function Home() {
                 <FaUserCircle className='h-6 cursor-auto fill-current'/>
               </div>
             </div>
-           <div className='flex flex-row justify-center align-middle'>
-            <DefinedRange/><DateRange />
-            </div>
       </header>
 
       <div className='relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] '>
