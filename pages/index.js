@@ -15,31 +15,6 @@ import { addDays } from 'date-fns';
 const inter = Inter({ subsets: ['latin'] })
 
 
-function DatePicker(){
-  const [state, setState] = useState({
-  selection: {
-    startDate: new Date(),
-    endDate: null,
-    key: 'selection'
-  },
-  compare: {
-    startDate: new Date(),
-    endDate: addDays(new Date(), 3),
-    key: 'compare'
-  }
-});
-  <DateRangePicker
-  onChange={item => setState({ ...state, ...item })}
-  months={1}
-  minDate={addDays(new Date(), -30)}
-  maxDate={addDays(new Date(), 30)}
-  direction="vertical"
-  scroll={{ enabled: true }}
-  ranges={[state.selection, state.compare]}
-/>;
-}
-
-
 function MyInput() {
   const [inputValue, setInputValue] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -66,13 +41,13 @@ function MyInput() {
   };
 
   return (
-    <div className='flex flex-row cursor-text justify-center'>
+    <div className='flex flex-row cursor-text space-x-11 justify-around'>
       <input
         type='text'
         value={inputValue}
         onChange={handleInputChange}
         onClick={handleInputClick}
-        className='input-box pl-5 pt-1.5 pr-1 flex-grow bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
+        className=' pt-1  flex text-center bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
         placeholder='Start your search'
       />
       <div className='hidden md:inline'>
@@ -81,14 +56,14 @@ function MyInput() {
         </p>
       </div>
       {showDatePicker && (
-         <div className='absolute z-10 mt-12 shadow-md shadow-gray-400'>
+         <div className='absolute z-10 mt-14 shadow-md shadow-gray-400'>
           <DateRangePicker
             onChange={handleDateSelect}
             months={1}
             minDate={addDays(new Date(), -30)}
             maxDate={addDays(new Date(), 30)}
             direction='vertical'
-            scroll={{ enabled: true }}
+            scroll={{ enable: true }}
             ranges={[
               {
                 startDate: new Date(),
@@ -102,9 +77,9 @@ function MyInput() {
               },
             ]}
           />
-          <div className='flex grid-row-2 pt-3 pb-2 bg-white justify-center space-x-10'>
-            <button onClick={handleCancel} className='bg-blue-500 text-white px-10 py-1 rounded'>Cancel</button>
-            <button onClick={handleSubmit} className='bg-blue-500 text-white px-10 py-1 rounded'>Submit</button>
+          <div className='flex pt-3 pb-2 space-x-11 bg-white justify-around'>
+            <button onClick={handleCancel} className='bg-blue-500 text-white px-10 py-1 rounded-sm'>Cancel</button>
+            <button onClick={handleSubmit} className='bg-blue-500 text-white px-10 py-1 rounded-sm'>Submit</button>
           </div>
         </div>
       )}
@@ -118,19 +93,19 @@ export default function Home() {
       <title>airbnb</title> 
         <header className=' top-0 bottom-0 z-50 grid grid-cols-3 bg-shadow-none px-5 bg-white p-5 md:px-10'>
         <div className='shadow-none top-0 z-50 grid-cols-3 bg-white  pr-5 pl-0'>
-          <div className='relative flex items-center h-10 cursor-pointer my-auto'>
+          <div className='relative flex items-center h-12 cursor-pointer my-auto'>
             <div className=' origin-top-left'>
         <Image src="/airbnb.jpg" alt="My Image" width={128} height={145} />
         </div>
         </div>
         </div>
 
-        <div className=' md:border-2 rounded-full py-2 md:lg:shadow-sm hover:shadow-lg duration-300 mr-15'>
+        <div className='md:border-2 rounded-full sm:py-2 py-4 md:py-2:flex md:shadow-sm md:hover:shadow-lg duration-300 mr-15'>
           <MyInput/>
         </div>
         
-        <div className='flex items-center space-x-3 justify-end text-gray-600'>
-          <div className='hover:bg-gray-100 flex flex-row rounded-full p-3'>
+        <div className='flex items-center space-x-3 md:ml-5 justify-end text-gray-600'>
+          <div className='hidden md:inline hover:bg-gray-100 flex-row rounded-full p-3'>
             <p className='hidden md:inline cursor-text'>Become a host</p>
             </div>
             <div className='hidden md:inline hover:bg-gray-100 p-3 rounded-full'>
