@@ -7,24 +7,107 @@ import {FaUserCircle} from 'react-icons/fa';
 import React, { useState } from 'react';
 import {BsFillArrowLeftCircleFill} from 'react-icons/bs';
 import {BsFillArrowRightCircleFill} from 'react-icons/bs';
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRangePicker } from 'react-date-range';
+import { addDays } from 'date-fns';
+
 const inter = Inter({ subsets: ['latin'] })
+
+
+function DatePicker(){
+  const [state, setState] = useState({
+  selection: {
+    startDate: new Date(),
+    endDate: null,
+    key: 'selection'
+  },
+  compare: {
+    startDate: new Date(),
+    endDate: addDays(new Date(), 3),
+    key: 'compare'
+  }
+});
+  <DateRangePicker
+  onChange={item => setState({ ...state, ...item })}
+  months={1}
+  minDate={addDays(new Date(), -30)}
+  maxDate={addDays(new Date(), 30)}
+  direction="vertical"
+  scroll={{ enabled: true }}
+  ranges={[state.selection, state.compare]}
+/>;
+}
+
 
 function MyInput() {
   const [inputValue, setInputValue] = useState('');
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
+
+  const handleInputClick = () => {
+    setShowDatePicker(true);
+  };
+
+  const handleDateSelect = (ranges) => {
+    console.log(ranges);
+    setShowDatePicker(false);
+  };
+
+  const handleCancel = () => {
+    setShowDatePicker(false);
+  };
+
+  const handleSubmit = () => {
+    setShowDatePicker(false);
+  };
+
   return (
-    <div className=' flex flex-row cursor-text '>
-        <input type='text'
-          value={inputValue}
-          onChange={handleInputChange}
-          className='input-box pl-5 pr-1 flex-grow bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
-          placeholder='Start your search'/>
-          <div className='hidden md:inline'>
-      <p className=' flex overflow-hidden  justify-between h-8 w-8 bg-red-400 rounded-full p-2 mr-2'>
-        <FaSearch className='cursor-pointer overflow-hidden text-white' />
-      </p></div>
+    <div className='flex flex-row cursor-text justify-center'>
+      <input
+        type='text'
+        value={inputValue}
+        onChange={handleInputChange}
+        onClick={handleInputClick}
+        className='input-box pl-5 pt-1.5 pr-1 flex-grow bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
+        placeholder='Start your search'
+      />
+      <div className='hidden md:inline'>
+        <p className='flex overflow-hidden justify-between h-8 w-8 bg-red-400 rounded-full p-2 mr-2'>
+          <FaSearch className='flex cursor-pointer overflow-hidden text-white' />
+        </p>
+      </div>
+      {showDatePicker && (
+         <div className='absolute z-10 mt-12 shadow-md shadow-gray-400'>
+          <DateRangePicker
+            onChange={handleDateSelect}
+            months={1}
+            minDate={addDays(new Date(), -30)}
+            maxDate={addDays(new Date(), 30)}
+            direction='vertical'
+            scroll={{ enabled: true }}
+            ranges={[
+              {
+                startDate: new Date(),
+                endDate: null,
+                key: 'selection',
+              },
+              {
+                startDate: new Date(),
+                endDate: addDays(new Date(), 3),
+                key: 'compare',
+              },
+            ]}
+          />
+          <div className='flex grid-row-2 pt-3 pb-2 bg-white justify-center space-x-10'>
+            <button onClick={handleCancel} className='bg-blue-500 text-white px-10 py-1 rounded'>Cancel</button>
+            <button onClick={handleSubmit} className='bg-blue-500 text-white px-10 py-1 rounded'>Submit</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -44,16 +127,15 @@ export default function Home() {
 
         <div className=' md:border-2 rounded-full py-2 md:lg:shadow-sm hover:shadow-lg duration-300 mr-15'>
           <MyInput/>
-         
         </div>
         
         <div className='flex items-center space-x-3 justify-end text-gray-600'>
           <div className='hover:bg-gray-100 flex flex-row rounded-full p-3'>
             <p className='hidden md:inline cursor-text'>Become a host</p>
             </div>
-            <div className='hover:bg-gray-100 p-3 rounded-full'>
+            <div className='hidden md:inline hover:bg-gray-100 p-3 rounded-full'>
               <p className='hidden md:inline'>
-              <FiGlobe className='text-lg flex items-center cursor-pointer h-6 fill-none mr-3' />
+              <FiGlobe className='text-lg flex items-center cursor-pointer h-6 fill-none mr-1.5 ml-1.5' />
               </p>
             </div>
             <div className='flex items-center text-lg mr-3 space-x-3 border-2 p-3 rounded-full hover:shadow-lg duration-300'>
