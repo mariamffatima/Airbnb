@@ -10,6 +10,7 @@ import {BsFillArrowRightCircleFill} from 'react-icons/bs';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
+import{BsFillPeopleFill} from 'react-icons/bs';
 import { addDays } from 'date-fns';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,7 +19,15 @@ const inter = Inter({ subsets: ['latin'] })
 function MyInput() {
   const [inputValue, setInputValue] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [inputData,setInputData]=useState(1);
 
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 7),
+      key: 'selection'
+    }
+  ]);
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -29,7 +38,7 @@ function MyInput() {
 
   const handleDateSelect = (ranges) => {
     console.log(ranges);
-    setShowDatePicker(false);
+    setShowDatePicker(true);
   };
 
   const handleCancel = () => {
@@ -39,50 +48,48 @@ function MyInput() {
   const handleSubmit = () => {
     setShowDatePicker(false);
   };
+  
 
   return (
-    <div className='flex flex-row cursor-text space-x-11 justify-around'>
+    <div className='flex flex-row cursor-text justify-between ml-2 mr-2  align-middle'>
       <input
         type='text'
         value={inputValue}
         onChange={handleInputChange}
         onClick={handleInputClick}
-        className=' pt-1  flex text-center bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
+        className=' flex bg-transparent outline-none text-sm text-gray-600 placeholder-gray-400'
         placeholder='Start your search'
       />
-      <div className='hidden md:inline'>
-        <p className='flex overflow-hidden justify-between h-8 w-8 bg-red-400 rounded-full p-2 mr-2'>
-          <FaSearch className='flex cursor-pointer overflow-hidden text-white' />
-        </p>
-      </div>
+    
+        <div className='hidden md:inline h-8 w-8 bg-red-400 rounded-full p-2'>
+          <FaSearch className='hidden md:inline cursor-pointer mb-3 text-white' />
+        </div>
+     
       {showDatePicker && (
-         <div className='absolute z-10 mt-14 shadow-md shadow-gray-400'>
+         <div className='absolute z-10 mt-14 shadow-md flex justify-items-center flex-col shadow-gray-400 '>
           <DateRangePicker
-            onChange={handleDateSelect}
-            months={1}
-            minDate={addDays(new Date(), -30)}
-            maxDate={addDays(new Date(), 30)}
-            direction='vertical'
-            scroll={{ enable: true }}
-            ranges={[
-              {
-                startDate: new Date(),
-                endDate: null,
-                key: 'selection',
-              },
-              {
-                startDate: new Date(),
-                endDate: addDays(new Date(), 3),
-                key: 'compare',
-              },
-            ]}
+              onChange={item => setState([item.selection])}
+              showSelectionPreview={true}
+              moveRangeOnFirstSelection={false}
+              months={1}
+              ranges={state}
+              direction="horizontal"
           />
+          <div className='bg-white border-2 border-black-100  flex justify-between '>
+            <div className='text-black text-md flex flex-row'>
+             Number of Guests < BsFillPeopleFill className='bg-white text-lg ml-1 m-1  text-gray-800'/>
+              </div>
+              <div>
+                <input type='number' value ={inputData} onChange={(e)=>{setInputData(e.target.value);}}className='border-none w-10'></input>
+              </div>
+            </div>
           <div className='flex pt-3 pb-2 space-x-11 bg-white justify-around'>
-            <button onClick={handleCancel} className='bg-blue-500 text-white px-10 py-1 rounded-sm'>Cancel</button>
+            <button onClick={handleCancel} className='bg-blue-500 text-white px-10 py-1 rounded-md'>Cancel</button>
             <button onClick={handleSubmit} className='bg-blue-500 text-white px-10 py-1 rounded-sm'>Submit</button>
           </div>
         </div>
       )}
+      
     </div>
   );
 }
@@ -92,24 +99,22 @@ export default function Home() {
     <body>
       <title>airbnb</title> 
         <header className=' top-0 bottom-0 z-50 grid grid-cols-3 bg-shadow-none px-5 bg-white p-5 md:px-10'>
-        <div className='shadow-none top-0 z-50 grid-cols-3 bg-white  pr-5 pl-0'>
-          <div className='relative flex items-center h-12 cursor-pointer my-auto'>
-            <div className=' origin-top-left'>
-        <Image src="/airbnb.jpg" alt="My Image" width={128} height={145} />
-        </div>
-        </div>
+        <div className='shadow-none md:mt-3.5 bg-white  pr-0 pl-0'>
+         <div className='relative flex items-center h-12 cursor-pointer my-auto origin-top-left'>
+          <Image src="/airbnb.jpg" alt="My Image" width={128} height={145} />
+         </div>
         </div>
 
-        <div className='md:border-2 rounded-full sm:py-2 py-4 md:py-2:flex md:shadow-sm md:hover:shadow-lg duration-300 mr-15'>
+        <div className='md:border-2 rounded-full py-3 md:py-2:flex md:shadow-sm md:hover:shadow-lg duration-300'>
           <MyInput/>
         </div>
         
         <div className='flex items-center space-x-3 md:ml-5 justify-end text-gray-600'>
-          <div className='hidden md:inline hover:bg-gray-100 flex-row rounded-full p-3'>
-            <p className='hidden md:inline cursor-text'>Become a host</p>
+          <div className='hidden lg:inline hover:bg-gray-100 flex-row rounded-full p-3'>
+            <p className='hidden lg:inline cursor-text'>Become a host</p>
             </div>
-            <div className='hidden md:inline hover:bg-gray-100 p-3 rounded-full'>
-              <p className='hidden md:inline'>
+            <div className='hidden sm:inline hover:bg-gray-100 p-3 rounded-full'>
+              <p className='hidden sm:inline'>
               <FiGlobe className='text-lg flex items-center cursor-pointer h-6 fill-none mr-1.5 ml-1.5' />
               </p>
             </div>
