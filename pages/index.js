@@ -284,7 +284,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className='flex space-x-3 overflow-scroll overflow-y-hidden p-3 ml-3 scroll-smooth'>
+          <div className='flex space-x-3 overflow-scroll scrollbar-none p-3 ml-3 scroll-smooth'>
    
            <div className='cursor--pointer hover:scale-105 transform transition duration-300'>
               <div className='relative h-80 w-80'>
