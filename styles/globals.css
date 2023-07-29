@@ -25,3 +25,17 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+@layer utilities {
+  ::-webkit-scrollbar {
+    width: 0.25rem;
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  html {
+    scrollbar-width: none;
+  }
+}
